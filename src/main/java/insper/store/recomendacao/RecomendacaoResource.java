@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import insper.store.aluno.AlunoOut;
+
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
@@ -19,9 +20,6 @@ public class RecomendacaoResource implements RecomendacaoController {
 
     @Autowired
     private RecomendacaoService recomendacaoService;
-
-    
-
 
     @GetMapping("/recomendacao/info")
     public ResponseEntity<Map<String, String>> info() {
@@ -54,36 +52,12 @@ public class RecomendacaoResource implements RecomendacaoController {
 
     @Override
     public ResponseEntity<List<RecomendacaoOut>> create(@RequestBody(required = true) RecomendacaoIn in){
-        // parser
         Recomendacao recomendacao = RecomendacaoParser.to(in);
-        // insert using service
-        // List<Recomendacao>  matchs = recomendacaoService.create(recomendacao);
         List<Recomendacao> matchs = recomendacaoService.create(recomendacao);
         List<RecomendacaoOut> recomendacaoOut = new ArrayList<RecomendacaoOut>();
-
         for (Recomendacao r : matchs){
             recomendacaoOut.add(RecomendacaoParser.to(r));
-
         }
-       
-        // List<RecomendacaoOut> recomendacaoOut = RecomendacaoParser.to(matchs);
-
         return ResponseEntity.ok(recomendacaoOut);
-        // return ResponseEntity.created(
-        //     ServletUriComponentsBuilder
-        //         .fromCurrentRequest()
-        //         .path("/{id}")
-        //         .buildAndExpand(aluno.id())
-        //         .toUri())
-        //     .body(AlunoParser.to(aluno)
-        //     );
-    }
-    // @Override
-    // public ResponseEntity<RecomendacaoOut> read(String id){
-    //     RecomendacaoOut aluno = RecomendacaoOut.builder()
-    //         .id(id)
-    //         .build();
-    //     return ResponseEntity.ok(aluno);
-    // }
-    
+}
 }
