@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import insper.store.recomendacao.CustomizedException.NotFoundException;
+
 
 
 @ControllerAdvice
@@ -42,8 +44,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body(error);
         }
 
-        //erro 401
-       
+        //erro 404
+        @ExceptionHandler(NotFoundException.class)
+        private ResponseEntity<RestErrorMessage> handleResourceNotFoundException(NotFoundException ex) {
+            RestErrorMessage error = new RestErrorMessage(HttpStatus.SC_NOT_FOUND, "Recurso não encontrado: " + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(error);
+        }
+
+
 
        
       
