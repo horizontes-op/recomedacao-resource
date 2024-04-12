@@ -1,24 +1,37 @@
 pipeline {
     agent any
     stages {
-        stage('Build Recomendacao-Resource') {
+        stage('recomendacao interface') {
             steps {
                 build job: 'recomendacao', wait: true
             }
         }
-        stage('Build') { 
+
+        stage("aluno interface"){
+            steps{
+                build job: 'aluno', wait: true
+            }
+        }
+
+        stage("instituicao interface"){
+            steps{
+                build job: 'instituicao', wait: true
+            }
+        }
+
+        stage('build recomendacao') { 
             steps {
                 sh 'mvn clean package'
             }
         }      
-        stage('Build Image') {
+        stage('build image recomendacao') {
             steps {
                 script {
                     account = docker.build("fernandowi55/recomendacao:${env.BUILD_ID}", "-f Dockerfile .")
                 }
             }
         }
-        stage('Push Image') {
+        stage('push image recomendacao') {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credential') {
