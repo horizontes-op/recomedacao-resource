@@ -42,12 +42,12 @@ public class ChatGptClient {
      
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer "); 
+        String token = System.getenv("OPENAI_API_KEY");
+        headers.set("Authorization", "Bearer " + token); 
         // Corpo da requisição
         String requestBody = "{\"model\": \"gpt-3.5-turbo\", \"messages\": [{\"role\": \"system\", \"content\": \"Você vai gerar um padrão de correspondência entre personas e instituições de ensino para um projeto de educação. Cada correspondência deve conter uma persona e uma instituição. Retorne as correspondecias com uma lista de JSON sem quebra de linha\"}, {\"role\": \"user\", \"content\": \"" + prompt + "\"}]}";
         // Criar uma entidade de requisição
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        System.out.println("Enviando requisição para a API do ChatGPT: " + requestBody);
         // Criar o RestTemplate
         
         RestTemplate restTemplate = new RestTemplate();
@@ -55,7 +55,6 @@ public class ChatGptClient {
         // Enviar a requisição para a API do ChatGPT
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
         // formate a resposta para retornar uma lista de objetos
-        System.out.println(responseEntity.toString());
         List<Recomendacao> response =  parseResponse(responseEntity.getBody().toString(), idAluno );
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
                 String resposta = responseEntity.getBody();

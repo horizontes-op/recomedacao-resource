@@ -20,7 +20,6 @@ public class RecomendacaoService {
 
     public List<Recomendacao> create(Recomendacao in) {
         ResponseEntity<List<InstituicaoOut>> instituicoes = instituicaoController.readAll();
-        System.out.println(instituicoes.toString());
         ResponseEntity<AlunoOut> aluno = alunoController.read(in.id_aluno());
         AlunoOut alunoOut = aluno.getBody();
         List<InstituicaoOut> instituicaoOut = instituicoes.getBody();
@@ -29,7 +28,7 @@ public class RecomendacaoService {
         ", descricao: " + alunoOut.descricao() + ", ocupacao: " + alunoOut.ocupacao() +  
         ", genero: " + alunoOut.genero().toString() + 
         "renda per capita: " + alunoOut.renda_per_capita().toString()+ 
-        "e gostaria de através dessas informações recomendar "+
+        " e gostaria de através dessas informações recomendar "+
         "instituições de ensino para ele. Poderia me ajudar? As instituicoes são essas: " + 
         instituicaoOut.toString() +   
         " devolva as universidades que dão match com ele. Me retone uma lista de "+ 

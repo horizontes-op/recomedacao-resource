@@ -30,4 +30,29 @@ public class Recomendacao {
     private String misssao;
     private String visao;
     private String valores;
+
+    @Override
+    public String toString() {
+        return "Recomendacao{" +
+                "id='" + id + '\'' +
+                ", id_aluno='" + id_aluno + '\'' +
+                ", id_instituicao='" + id_instituicao + '\'' +
+                ", motivo='" + motivo + '\'' +
+                ", nome='" + nome + '\'' +
+                ", area_atuacao='" + area_atuacao + '\'' +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", numero_endereco='" + numero_endereco + '\'' +
+                ", site='" + site + '\'' +
+                ", cep='" + cep + '\'' +
+                ", perfil_instagram='" + perfil_instagram + '\'' +
+                ", perfil_facebook='" + perfil_facebook + '\'' +
+                ", perfil_linkedin='" + perfil_linkedin + '\'' +
+                ", perfil_twitter='" + perfil_twitter + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", misssao='" + misssao + '\'' +
+                ", visao='" + visao + '\'' +
+                ", valores='" + valores + '\'' +
+                '}';
+    }
 }

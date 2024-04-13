@@ -43,7 +43,7 @@ public class RecomendacaoModel {
 
     public RecomendacaoModel(Recomendacao o) {
         this.id = o.id();
-        // this.id_aluno = o.id_aluno();
+        this.id_aluno = o.id_aluno();
         this.id_instituicao = o.id_instituicao();
         this.motivo = o.motivo();
     }
